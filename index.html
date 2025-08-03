@@ -52,8 +52,7 @@
 				var setInterval1=setInterval(function() {
 					let nTime = new Date();
 					dateDiff(nTime, "2024/7/14 0:0:0");
-					// console.log(formartDate(nTime));
-					// console.log("时间差：" + dTime);
+					updateGaokaoCountdown(nTime);
 				}, 1000)
 
 				function dateDiff(nTime, sTime) {
@@ -69,8 +68,26 @@
 					$("#dDays").html("相爱天数: " + iDays.toFixed(13) + "天");
 					$("#dHour").html("相爱小时: " + iHours.toFixed(10) + "小时");
 					$("#dMinutes").html("相爱分钟: " + iMinutes.toFixed(8) + "分钟");
-					// return iHours
 				};
+				
+				// 新增高考倒计时函数
+				function updateGaokaoCountdown(nTime) {
+					// 假设高考时间为2026年6月7日 9:00:00
+					let gaokaoDate = new Date("2026/6/7 9:00:00").getTime();
+					let distance = gaokaoDate - nTime.getTime();
+					
+					// 计算天、小时、分钟、秒
+					let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+					let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+					let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+					let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+					
+					// 更新显示
+					$("#gaokaoCountdown").html(
+						"距离2026年高考还有: " + days + "天 " + hours + "小时 " + 
+						minutes + "分 " + seconds + "秒"
+					);
+				}
 
 				/*格式化时间  */
 				function formartDate(mTime) {
@@ -98,7 +115,6 @@
 						$(".audio1").get(0).pause();
 						$(".musicBtn i").removeClass("layui-anim-loop")
 					}
-
 				})
 			})
 		</script>
@@ -138,6 +154,15 @@
 				top: 75%;
 				text-align: center;
 			}
+			
+			/* 新增高考倒计时样式 */
+			#gaokaoCountdown {
+				margin: 0 auto;
+				text-align: center;
+				font-size: 30px;
+				color: #0FCECE;
+				margin-top: 20px;
+			}
 		</style>
 	</head>
 	<body>
@@ -150,6 +175,8 @@
 				<div id="dDays" class="lTime"></div><br />
 				<div id="dHour" class="lTime"></div><br />
 				<div id="dMinutes" class="lTime"></div><br />
+				<!-- 新增高考倒计时显示 -->
+				<div id="gaokaoCountdown" class="lTime"></div><br />
 			</div>
 		</div>
 		<button class="musicBtn  ">
