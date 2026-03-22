@@ -101,11 +101,13 @@
 
         .couple-names {
             font-family: 'Dancing Script', cursive;
-            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-size: clamp(2rem, 6vw, 5rem);
             color: #d63384;
             text-shadow: 2px 2px 4px rgba(255,255,255,0.8), 0 0 30px rgba(255,105,180,0.5);
             margin-bottom: 10px;
             animation: heartbeat 2s ease-in-out infinite;
+            white-space: nowrap;
+            word-break: keep-all;
         }
 
         @keyframes heartbeat {
@@ -161,6 +163,8 @@
             color: #666;
             margin-bottom: 15px;
             letter-spacing: 2px;
+            white-space: nowrap;
+            word-break: keep-all;
         }
 
         .start-date {
@@ -168,6 +172,8 @@
             color: #d63384;
             margin-bottom: 25px;
             font-weight: 600;
+            white-space: nowrap;
+            word-break: keep-all;
         }
 
         .timer-display {
@@ -183,6 +189,7 @@
             padding: 20px 25px;
             min-width: 90px;
             box-shadow: 0 10px 30px rgba(255,105,180,0.2);
+            flex-shrink: 0;
         }
 
         .time-number {
@@ -199,6 +206,8 @@
             color: #d63384;
             margin-top: 8px;
             display: block;
+            white-space: nowrap;
+            word-break: keep-all;
         }
 
         /* 内容区 */
@@ -261,22 +270,70 @@
         }
 
         /* 响应式 */
-        @media (max-width: 600px) {
-            .timer-card {
-                padding: 30px 20px;
+        @media (max-width: 768px) {
+            .timer-card, .exam-card {
+                padding: 25px 15px;
+                width: 95%;
+                max-width: 400px;
+            }
+            
+            .timer-display {
+                gap: 10px;
             }
             
             .time-unit {
-                padding: 15px 18px;
-                min-width: 70px;
+                padding: 12px 10px;
+                min-width: 65px;
+                border-radius: 15px;
             }
             
             .time-number {
-                font-size: 2rem;
+                font-size: 1.8rem;
+            }
+            
+            .time-text {
+                font-size: 0.8rem;
             }
             
             .content-section {
-                padding: 25px;
+                padding: 20px;
+                width: 95%;
+            }
+            
+            .couple-names {
+                font-size: clamp(1.8rem, 6vw, 3rem);
+            }
+            
+            .start-date {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 380px) {
+            .time-unit {
+                padding: 10px 8px;
+                min-width: 58px;
+            }
+            
+            .time-number {
+                font-size: 1.5rem;
+            }
+            
+            .time-text {
+                font-size: 0.75rem;
+            }
+            
+            .timer-display {
+                gap: 8px;
+            }
+            
+            .timer-label {
+                font-size: 0.95rem;
+                letter-spacing: 1px;
+            }
+            
+            .start-date {
+                font-size: 1rem;
             }
         }
     </style>
