@@ -1,8 +1,10 @@
+以下是移除高考倒计时相关代码后的HTML文件。页面保留了恋爱计时器、飘浮心形动画和背景图文，整体风格温馨浪漫。
+```html
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>我们的恋爱时光</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <style>
@@ -17,6 +19,7 @@
             font-family: 'Noto Serif SC', serif;
             overflow-x: hidden;
             position: relative;
+            background-color: #1a1a2e; /* 与背景图颜色呼应 */
         }
 
         /* 背景图片层 */
@@ -27,25 +30,26 @@
             width: 100%;
             height: 100%;
             background-image: url('1_compressed.jpg');
-            background-size: contain;
+            background-size: cover;          /* 改为cover让图片更饱满，同时保留居中 */
             background-position: center;
             background-repeat: no-repeat;
             background-color: #1a1a2e;
             z-index: -2;
         }
 
-        /* 遮罩层 - 让文字更清晰 */
+        /* 遮罩层 - 让文字更清晰柔和 */
         .overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, rgba(255,182,193,0.15) 0%, rgba(255,218,225,0.2) 50%, rgba(255,240,245,0.15) 100%);
+            background: linear-gradient(135deg, rgba(255,182,193,0.1) 0%, rgba(255,218,225,0.15) 50%, rgba(255,240,245,0.1) 100%);
+            backdrop-filter: blur(1px);       /* 极轻微模糊，突出文字 */
             z-index: -1;
         }
 
-        /* 飘浮的心形动画 */
+        /* 飘浮的心形动画容器 */
         .hearts-container {
             position: fixed;
             top: 0;
@@ -62,6 +66,7 @@
             color: rgba(255, 105, 180, 0.4);
             font-size: 20px;
             animation: float-up 15s infinite ease-in;
+            will-change: transform, opacity;
         }
 
         @keyframes float-up {
@@ -101,9 +106,9 @@
 
         .couple-names {
             font-family: 'Dancing Script', cursive;
-            font-size: clamp(2rem, 6vw, 5rem);
+            font-size: clamp(2.2rem, 7vw, 5.5rem);
             color: #d63384;
-            text-shadow: 2px 2px 4px rgba(255,255,255,0.8), 0 0 30px rgba(255,105,180,0.5);
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.9), 0 0 30px rgba(255,105,180,0.5);
             margin-bottom: 10px;
             animation: heartbeat 2s ease-in-out infinite;
             white-space: nowrap;
@@ -118,177 +123,188 @@
         .subtitle {
             font-size: 1.2rem;
             color: #8b4513;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
+            font-weight: 500;
         }
 
-        /* 计时器卡片 */
+        /* 恋爱计时器卡片 */
         .timer-card {
-            background: rgba(255, 255, 255, 0.25);
-            border-radius: 30px;
-            padding: 40px 50px;
-            box-shadow: 0 20px 60px rgba(255,105,180,0.15), inset 0 0 0 1px rgba(255,255,255,0.2);
-            margin-bottom: 30px;
+            background: rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 40px;
+            padding: 45px 50px;
+            box-shadow: 0 25px 60px rgba(255,105,180,0.2), inset 0 0 0 1px rgba(255,255,255,0.3);
+            margin-bottom: 35px;
             border: 1px solid rgba(255,182,193,0.3);
+            max-width: 700px;
+            width: 100%;
+            transition: transform 0.3s ease;
         }
 
-        /* 高考倒计时卡片 - 蓝色系 */
-        .exam-card {
-            background: rgba(255, 255, 255, 0.25);
-            border-radius: 30px;
-            padding: 35px 45px;
-            box-shadow: 0 20px 60px rgba(100,149,237,0.15), inset 0 0 0 1px rgba(255,255,255,0.2);
-            margin-bottom: 40px;
-            border: 1px solid rgba(135,206,250,0.3);
-        }
-
-        .exam-card .timer-label {
-            color: #4682b4;
-            font-weight: 600;
-        }
-
-        .exam-card .start-date {
-            color: #1e90ff;
-        }
-
-        .exam-card .time-unit {
-            background: linear-gradient(145deg, #87ceeb, #b0e0e6);
-        }
-
-        .exam-card .time-text {
-            color: #4682b4;
+        .timer-card:hover {
+            transform: translateY(-5px);
         }
 
         .timer-label {
-            font-size: 1.1rem;
-            color: #666;
-            margin-bottom: 15px;
+            font-size: 1.2rem;
+            color: #5a3e36;
+            margin-bottom: 18px;
             letter-spacing: 2px;
+            font-weight: 600;
             white-space: nowrap;
-            word-break: keep-all;
         }
 
         .start-date {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             color: #d63384;
-            margin-bottom: 25px;
-            font-weight: 600;
+            margin-bottom: 30px;
+            font-weight: 700;
+            background: rgba(255,255,255,0.5);
+            display: inline-block;
+            padding: 8px 28px;
+            border-radius: 40px;
+            letter-spacing: 1px;
             white-space: nowrap;
-            word-break: keep-all;
         }
 
         .timer-display {
             display: flex;
-            gap: 20px;
+            gap: 18px;
             justify-content: center;
             flex-wrap: wrap;
+            align-items: center;
         }
 
         .time-unit {
             background: linear-gradient(145deg, #ffb6c1, #ffc0cb);
-            border-radius: 20px;
-            padding: 20px 25px;
-            min-width: 90px;
-            box-shadow: 0 10px 30px rgba(255,105,180,0.2);
+            border-radius: 24px;
+            padding: 22px 18px;
+            min-width: 100px;
+            box-shadow: 0 12px 28px rgba(255,105,180,0.25);
             flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .time-unit:hover {
+            background: linear-gradient(145deg, #ff9eb5, #ffb3c6);
+            box-shadow: 0 15px 32px rgba(255,105,180,0.35);
         }
 
         .time-number {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 700;
             color: #fff;
-            text-shadow: 2px 2px 4px rgba(214,51,132,0.3);
+            text-shadow: 2px 2px 4px rgba(214,51,132,0.4);
             display: block;
             line-height: 1;
+            letter-spacing: 1px;
         }
 
         .time-text {
-            font-size: 0.9rem;
-            color: #d63384;
-            margin-top: 8px;
+            font-size: 0.95rem;
+            color: #a52a5e;
+            margin-top: 10px;
             display: block;
+            font-weight: 600;
             white-space: nowrap;
-            word-break: keep-all;
         }
 
         /* 内容区 */
         .content-section {
             max-width: 800px;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 25px;
-            padding: 40px;
-            box-shadow: 0 15px 50px rgba(0,0,0,0.06);
-            border: 1px solid rgba(255,182,193,0.2);
+            width: 100%;
+            background: rgba(255, 255, 255, 0.35);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 35px;
+            padding: 45px 40px;
+            box-shadow: 0 20px 55px rgba(0,0,0,0.08);
+            border: 1px solid rgba(255,182,193,0.25);
+            margin-top: 10px;
         }
 
         .love-quote {
-            font-size: 1.4rem;
-            color: #8b4513;
+            font-size: 1.5rem;
+            color: #6d4c41;
             line-height: 2;
             margin-bottom: 30px;
             font-style: italic;
+            font-weight: 500;
+            position: relative;
+            padding: 0 15px;
         }
 
         .love-quote::before {
             content: '"';
-            font-size: 3rem;
+            font-size: 4rem;
             color: #ffb6c1;
-            float: left;
-            margin-right: 10px;
-            line-height: 1;
+            position: absolute;
+            left: -10px;
+            top: -20px;
+            opacity: 0.7;
         }
 
         .divider {
-            width: 100px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, #ffb6c1, transparent);
-            margin: 30px auto;
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #f8a5c2, transparent);
+            margin: 35px auto;
+            border-radius: 2px;
         }
 
         .love-message {
-            font-size: 1.1rem;
-            color: #555;
-            line-height: 2.2;
+            font-size: 1.15rem;
+            color: #4a3a32;
+            line-height: 2.3;
             text-align: left;
         }
 
         .love-message p {
-            margin-bottom: 15px;
+            margin-bottom: 22px;
             text-indent: 2em;
+        }
+
+        .love-message p:last-child {
+            margin-bottom: 0;
+            font-weight: 600;
+            color: #b3416b;
         }
 
         /* 底部 */
         .footer {
-            margin-top: 40px;
-            color: #888;
-            font-size: 0.9rem;
+            margin-top: 45px;
+            color: #7a5a5a;
+            font-size: 1rem;
+            font-weight: 500;
         }
 
         .heart-divider {
             color: #ffb6c1;
-            font-size: 1.5rem;
-            letter-spacing: 10px;
+            font-size: 1.8rem;
+            letter-spacing: 12px;
+            margin-bottom: 8px;
         }
 
-        /* 响应式 */
+        /* 响应式设计 */
         @media (max-width: 768px) {
-            .timer-card, .exam-card {
-                padding: 25px 15px;
+            .timer-card {
+                padding: 30px 15px;
                 width: 95%;
-                max-width: 400px;
             }
             
             .timer-display {
-                gap: 10px;
+                gap: 12px;
             }
             
             .time-unit {
-                padding: 12px 10px;
-                min-width: 65px;
-                border-radius: 15px;
+                padding: 14px 8px;
+                min-width: 75px;
+                border-radius: 18px;
             }
             
             .time-number {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             
             .time-text {
@@ -296,44 +312,36 @@
             }
             
             .content-section {
-                padding: 20px;
+                padding: 25px 20px;
                 width: 95%;
             }
             
             .couple-names {
-                font-size: clamp(1.8rem, 6vw, 3rem);
+                font-size: clamp(2rem, 8vw, 3.5rem);
             }
             
             .start-date {
-                font-size: 1.1rem;
+                font-size: 1.2rem;
+                padding: 6px 20px;
+            }
+
+            .love-quote {
+                font-size: 1.3rem;
             }
         }
         
-        @media (max-width: 380px) {
+        @media (max-width: 400px) {
             .time-unit {
-                padding: 10px 8px;
-                min-width: 58px;
+                padding: 10px 6px;
+                min-width: 65px;
             }
             
             .time-number {
-                font-size: 1.5rem;
-            }
-            
-            .time-text {
-                font-size: 0.75rem;
+                font-size: 1.7rem;
             }
             
             .timer-display {
                 gap: 8px;
-            }
-            
-            .timer-label {
-                font-size: 0.95rem;
-                letter-spacing: 1px;
-            }
-            
-            .start-date {
-                font-size: 1rem;
             }
         }
     </style>
@@ -343,19 +351,19 @@
     <div class="bg-image"></div>
     <div class="overlay"></div>
     
-    <!-- 飘浮的心形 -->
+    <!-- 飘浮的心形容器 -->
     <div class="hearts-container" id="heartsContainer"></div>
 
     <div class="container">
-        <!-- 标题 -->
+        <!-- 标题区域 -->
         <div class="header">
             <h1 class="couple-names">❤ 马冬阳 & 樊小瑜 ❤</h1>
             <p class="subtitle">OUR LOVE STORY</p>
         </div>
 
-        <!-- 恋爱计时器 -->
+        <!-- 恋爱计时器卡片 -->
         <div class="timer-card">
-            <div class="timer-label">我们已经相爱了</div>
+            <div class="timer-label">✨ 我们已经相爱了 ✨</div>
             <div class="start-date">始于 2024年7月14日</div>
             <div class="timer-display">
                 <div class="time-unit">
@@ -377,31 +385,7 @@
             </div>
         </div>
 
-        <!-- 高考倒计时 -->
-        <div class="exam-card">
-            <div class="timer-label">📚 2026高考倒计时</div>
-            <div class="start-date">目标：2026年6月7日</div>
-            <div class="timer-display">
-                <div class="time-unit">
-                    <span class="time-number" id="examDays">0</span>
-                    <span class="time-text">天</span>
-                </div>
-                <div class="time-unit">
-                    <span class="time-number" id="examHours">0</span>
-                    <span class="time-text">小时</span>
-                </div>
-                <div class="time-unit">
-                    <span class="time-number" id="examMinutes">0</span>
-                    <span class="time-text">分钟</span>
-                </div>
-                <div class="time-unit">
-                    <span class="time-number" id="examSeconds">0</span>
-                    <span class="time-text">秒</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- 内容 -->
+        <!-- 情感内容区 -->
         <div class="content-section">
             <div class="love-quote">
                 遇见你，是我这辈子最美好的意外。从那一刻起，我的世界因你而完整。
@@ -428,16 +412,22 @@
     </div>
 
     <script>
-        // 恋爱开始日期 - 请修改为你图片上的日期
+        // 恋爱开始日期 (请根据实际纪念日确认)
         const startDate = new Date('2024-07-14T00:00:00');
-        
-        // 2026高考日期（6月7日）
-        const examDate = new Date('2026-06-07T09:00:00');
         
         // 更新恋爱计时器
         function updateLoveTimer() {
             const now = new Date();
             const diff = now - startDate;
+            
+            // 防止时间差为负数（理论上不会）
+            if (diff < 0) {
+                document.getElementById('days').textContent = '0';
+                document.getElementById('hours').textContent = '0';
+                document.getElementById('minutes').textContent = '0';
+                document.getElementById('seconds').textContent = '0';
+                return;
+            }
             
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -450,50 +440,27 @@
             document.getElementById('seconds').textContent = seconds;
         }
         
-        // 更新高考倒计时
-        function updateExamTimer() {
-            const now = new Date();
-            const diff = examDate - now;
-            
-            if (diff > 0) {
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-                
-                document.getElementById('examDays').textContent = days;
-                document.getElementById('examHours').textContent = hours;
-                document.getElementById('examMinutes').textContent = minutes;
-                document.getElementById('examSeconds').textContent = seconds;
-            } else {
-                document.getElementById('examDays').textContent = 0;
-                document.getElementById('examHours').textContent = 0;
-                document.getElementById('examMinutes').textContent = 0;
-                document.getElementById('examSeconds').textContent = 0;
-            }
-        }
-        
-        // 每秒更新
-        setInterval(() => {
-            updateLoveTimer();
-            updateExamTimer();
-        }, 1000);
+        // 立即执行并每秒更新恋爱计时
         updateLoveTimer();
-        updateExamTimer();
+        setInterval(updateLoveTimer, 1000);
         
-        // 生成飘浮的心形
+        // 生成飘浮的心形 (动态增添浪漫氛围)
         function createFloatingHearts() {
             const container = document.getElementById('heartsContainer');
+            if (!container) return;
             const hearts = ['❤', '💕', '💖', '💗', '💓', '💝'];
             
-            for (let i = 0; i < 20; i++) {
+            // 清除可能已存在的心形，避免重复（可选）
+            container.innerHTML = '';
+            
+            for (let i = 0; i < 22; i++) {
                 const heart = document.createElement('div');
                 heart.className = 'floating-heart';
                 heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
                 heart.style.left = Math.random() * 100 + '%';
                 heart.style.animationDelay = Math.random() * 15 + 's';
-                heart.style.animationDuration = (10 + Math.random() * 10) + 's';
-                heart.style.fontSize = (15 + Math.random() * 20) + 'px';
+                heart.style.animationDuration = (11 + Math.random() * 12) + 's';
+                heart.style.fontSize = (16 + Math.random() * 22) + 'px';
                 container.appendChild(heart);
             }
         }
@@ -502,3 +469,4 @@
     </script>
 </body>
 </html>
+```
